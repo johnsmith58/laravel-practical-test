@@ -35,6 +35,8 @@ class RouteServiceProvider extends ServiceProvider
 
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
+            
+            $this->mapApiV1Routes();
         });
     }
 
@@ -48,5 +50,19 @@ class RouteServiceProvider extends ServiceProvider
         RateLimiter::for('api', function (Request $request) {
             return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
         });
+    }
+
+    /**
+     * Define api v1 routes for application
+     * 
+     * These routes are typically stateless.
+     * 
+     * @return void
+     */
+    public function mapApiV1Routes()
+    {
+        Route::prefix('api/v1')
+        ->namespace($this->namespace)
+        ->group(base_path('routes/api_v1.php'));
     }
 }

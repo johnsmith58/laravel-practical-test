@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Services\AuthManagement\UserAuth;
+use App\Services\AuthManagement\AuthInterface;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +15,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(AuthInterface::class, function(){
+            return new UserAuth();
+        });
     }
 
     /**
