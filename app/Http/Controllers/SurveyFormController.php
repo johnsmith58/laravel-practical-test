@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\SubmitSurveyForm;
 use App\Http\Requests\SurveyFormStoreRequest;
 use App\Repositories\SurveyManagement\SurveyRepository;
 use App\Services\SurveyManagement\SurveyForm;
@@ -22,7 +23,7 @@ class SurveyFormController extends Controller
 
     public function store(SurveyFormStoreRequest $request, SurveyForm $surveyForm)
     {
-        $surveyForm->store($request->validated());
+        $survey = $surveyForm->store($request->validated());
         return redirect()->route('survey-forms')->with('success', 'Survey Form Submitted Successfully');
     }
 }
