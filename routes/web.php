@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\SurveyFormController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +18,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('survey-list', [SurveyFormController::class, 'index'])->name('survey-list');
+    Route::get('/survey-forms', [SurveyFormController::class, 'form'])->name('survey-forms');
+    Route::post('/survey-forms', [SurveyFormController::class, 'store'])->name('survey-forms-store');
+});
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

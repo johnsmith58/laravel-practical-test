@@ -1,0 +1,18 @@
+.survery-container{
+    padding: 0;
+    .header{
+        background-color: #ff5722;
+        .nav-link{
+            color: white !important;
+        }
+    }
+    .form-container{
+        width: 90%;
+        margin: 0 auto;
+        form{
+            .form-group{
+                margin-bottom: 1rem;
+            }
+        }
+    }
+}
