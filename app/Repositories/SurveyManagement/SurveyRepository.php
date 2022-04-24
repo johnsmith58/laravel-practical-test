@@ -8,6 +8,6 @@ class SurveyRepository
 {
     public function getAll()
     {
-        return Survey::all();
+        return Survey::orderBy('id', 'desc')->get();
     }
 }
