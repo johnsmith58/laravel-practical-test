@@ -53,9 +53,16 @@ class Handler extends ExceptionHandler
         });
     }
 
+    protected function unauthenticated($request, AuthenticationException $exception)
+    {
+        return $request->expectsJson()
+                    ? $this->error(401, null, ["desc" => 'Unauthenticated'])
+                    : redirect()->guest($exception->redirectTo() ?? route('index'));
+    }
+
     public function render($request, Throwable $exception)
     {
-        if($request->isJson())
+        if($request->expectsJson())
         {
             return $this->handleApiException($request, $exception);
         }else{
@@ -120,8 +127,6 @@ class Handler extends ExceptionHandler
         // }
 
         // $response['status'] = $statusCode;
-
-        // dd($exception);
 
         return $this->error($statusCode, null, $response);
     }
