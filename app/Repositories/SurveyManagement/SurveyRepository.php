@@ -8,6 +8,7 @@ class SurveyRepository
 {
     public function getAll()
     {
-        return Survey::orderBy('id', 'desc')->get();
+        // use withCount or with
+        return Survey::withCount('likes')->orderBy('id', 'desc')->get();
     }
 }
